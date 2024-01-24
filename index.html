@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+   <!-- CodeWithManish -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <title>weather app</title>
+    <style>
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Ruda:wght@400;600;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    /* background-image: url(" https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2Vic2l0ZSUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"); */
+    background-size: cover;
+    background-color:#9cd4ff61;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100vh;
+  }
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  background-color: #6c633b4b;
+  color: #fff;
+  border-radius: 25px;
+  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.26);
+}
+
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  grid-gap: 1rem;
+}
+
+.img_section {
+  border-radius: 25px;
+  background-image: url("../img/bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  transform: scale(1.03) perspective(200px);
+}
+
+.img_section::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a3e4654 10%, #29404e42 100%);
+  opacity: 0.5;
+  z-index: -1;
+  border-radius: 25px;
+}
+
+.default_info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.default_info img {
+    width: 80%;
+    object-fit: cover;
+    margin: 24px auto;
+    background: white;
+    border-radius: 78%;
+    
+
+}
+
+.default_info h2 {
+  font-size: 3rem;
+}
+
+.default_info h3 {
+  font-size: 1.3rem;
+  text-transform: capitalize;
+}
+
+.weather_temp {
+  font-size: 4rem;
+  font-weight: 800;
+}
+
+/* content section */
+.content_section {
+  padding: 1.5rem;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.content_section form {
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.content_section form input {
+    width: 84%;
+    outline: none;
+    background: transparent;
+    border: 1px solid #37474f;
+    border-radius: 5px;
+    padding: 0.7rem 1rem;
+    font-family: inherit;
+    color: #fdfdfd;
+    font-size: 1.5rem;
+}
+
+.content_section form button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 1rem 0.7rem;
+    font-family: inherit;
+    font-size: 1.2rem;
+    outline: none;
+    border: none;
+    background: #b9620e;
+    color: #fff9f9;
+    cursor: pointer;
+}
+
+.day_info .content {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+}
+
+.day_info .content .title {
+  font-weight: 600;
+}
+
+.list_content ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  margin: 3rem 0rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.list_content ul li {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+  transition: all 0.3s ease-in;
+}
+
+.list_content ul li:hover {
+    transform: scale(1.1);
+    background-color: #c2c4c6b8;
+    color: #0e1111;
+    box-shadow: 0 5px 15px rgb(122 144 142 / 62%);
+    cursor: pointer;
+}
+
+.list_content ul li img {
+  width: 50%;
+  object-fit: cover;
+}
+
+.icons {
+  opacity: 0;
+}
+
+.icons.fadeIn {
+  animation: 0.5s fadeIn forwards;
+  animation-delay: 0.7s;
+}
+
+@keyframes fadeIn {
+  to {
+    transition: all 0.5s ease-in;
+    opacity: 1;
+  }
+}
+
+@media (max-width:991px){
+  .container {
+    max-width: 800px;
+    width: 100%;
+    background-color: #6c633b4b;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.26);
+    height: 543px;
+}
+}
+@media (max-width:768px){
+  .container {
+    max-width: 643px;
+    width: 100%;
+    background-color: #6c633b4b;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.26);
+    height: 542px;
+}
+.content_section form input {
+    width: 100%;
+    outline: none;
+    background: transparent;
+    border: 1px solid #37474f;
+    border-radius: 5px;
+    padding: 0.7rem 1rem;
+    font-family: inherit;
+    color: #fdfdfd;
+    font-size: 1.0rem;
+}
+.content_section form button {
+    position: absolute;
+    top: -6px;
+    right: 0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 7px;
+    padding: 1rem 0.7rem;
+    font-family: inherit;
+    font-size: 1.0rem;
+    outline: none;
+    border: none;
+    background: #b9620e;
+    color: #fff9f9;
+    cursor: pointer;
+}
+}
+@media (max-width:425px){
+  .container {
+    max-width: 624px;
+    width: 85%;
+    background-color: #6c633b4b;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.26);
+    height: 1106px;
+    margin-top: 100%;
+}
+.wrapper {
+    display: flex;
+    grid-gap: 0rem;
+    flex-flow: column-reverse;
+    max-width: 100%;
+    width: 100%;
+    height: 78%;
+    margin-top: 41%;
+    margin-bottom: 22%;
+}
+.img_section {
+    border-radius: 25px;
+    background-image: url(../img/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    transform: scale(1.03) perspective(200px);
+    height: 71%;
+}
+}
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="wrapper">
+          <div class="img_section">
+            <div class="default_info">
+              <h2 class="default_day">Sunday</h2>
+              <span class="default_date">18 September 2023 </span>
+              <div class="icons">
+                <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="" />
+                <h2 class="weather_temp">22°C</h2>
+                <h3 class="cloudtxt">Overcast Clouds</h3>
+              </div>
+            </div>
+          </div>
+          <div class="content_section">
+            <form>
+              <input
+                type="text"
+                placeholder="Search Location"
+                class="input_field"
+              />
+              <button type="submit" class="btn_search">Search</button>
+            </form>
+  
+            <div class="day_info">
+              <div class="content">
+                <p class="title">NAME</p>
+                <span class="value">United Kingdom</span>
+              </div>
+              <div class="content">
+                <p class="title">TEMP</p>
+                <span class="value">23°C</span>
+              </div>
+              <div class="content">
+                <p class="title">HUMIDITY</p>
+                <span class="value">2%</span>
+              </div>
+              <div class="content">
+                <p class="title">WIND SPEED</p>
+                <span class="value">2.92 Km/h</span>
+              </div>
+            </div>
+  
+            <div class="list_content">
+              <ul>
+                <li>
+                  <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+                  <span>Sat</span>
+                  <span class="day_temp">23°C</span>
+                </li>
+                <li>
+                  <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+                  <span>Sat</span>
+                  <span class="day_temp">23°C</span>
+                </li>
+                <li>
+                  <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+                  <span>Sat</span>
+                  <span class="day_temp">23°C</span>
+                </li>
+                <li>
+                  <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+                  <span>Sat</span>
+                  <span class="day_temp">23°C</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+                
+<footer>
+<p>&copy; 2024 Subhoshree Pattnaik. All rights reserved.</p>
+</footer>
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&callback=initMap"></script>
+
+<script>
+
+"use strict";
+
+const API = "630320a938a55495202ebc8082d07e10";
+
+const dayEl = document.querySelector(".default_day");
+const dateEl = document.querySelector(".default_date");
+const btnEl = document.querySelector(".btn_search");
+const inputEl = document.querySelector(".input_field");
+
+const iconsContainer = document.querySelector(".icons");
+const dayInfoEl = document.querySelector(".day_info");
+const listContentEl = document.querySelector(".list_content ul");
+
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+// display the day
+const day = new Date();
+const dayName = days[day.getDay()];
+dayEl.textContent = dayName;
+
+// display date
+let month = day.toLocaleString("default", { month: "long" });
+let date = day.getDate();
+let year = day.getFullYear();
+
+console.log();
+dateEl.textContent = date + " " + month + " " + year;
+
+// add event
+btnEl.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // check empty value
+  if (inputEl.value !== "") {
+    const Search = inputEl.value;
+    inputEl.value = "";
+    findLocation(Search);
+  } else {
+    console.log("Please Enter City or Country Name");
+  }
+});
+
+async function findLocation(name) {
+  iconsContainer.innerHTML = "";
+  dayInfoEl.innerHTML = "";
+  listContentEl.innerHTML = "";
+  try {
+    const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${API}`;
+    const data = await fetch(API_URL);
+    const result = await data.json();
+    console.log(result);
+
+//     if (result.cod !== "404") {
+//       // display image content
+//       const ImageContent = displayImageContent(result);
+
+//       // display right side content
+//       const rightSide = rightSideContent(result);
+
+//       // forecast function
+//       displayForeCast(result.coord.lat, result.coord.lon);
+
+//       setTimeout(() => {
+//         iconsContainer.insertAdjacentHTML("afterbegin", ImageContent);
+//         iconsContainer.classList.add("fadeIn");
+//         dayInfoEl.insertAdjacentHTML("afterbegin", rightSide);
+//       }, 1500);
+//     } else {
+//       const message = `<h2 class="weather_temp">${result.cod}</h2>
+//       <h3 class="cloudtxt">${result.message}</h3>`;
+//       iconsContainer.insertAdjacentHTML("afterbegin", message);
+//     }
+//   } catch (error) {}
+if (result.cod !== "404") {
+      // display image content
+      const ImageContent = displayImageContent(result);
+
+      // display right side content
+      const rightSide = rightSideContent(result);
+
+      // forecast function
+      displayForeCast(result.coord.lat, result.coord.lon);
+
+      // Set background color based on weather conditions
+      setBackgroundColor(result.weather[0].main);
+      
+      setTimeout(() => {
+        iconsContainer.insertAdjacentHTML("afterbegin", ImageContent);
+        iconsContainer.classList.add("fadeIn");
+        dayInfoEl.insertAdjacentHTML("afterbegin", rightSide);
+      }, 1500);
+    } else {
+      const message = `<h2 class="weather_temp">${result.cod}</h2>
+      <h3 class="cloudtxt">${result.message}</h3>`;
+      iconsContainer.insertAdjacentHTML("afterbegin", message);
+    }
+  } catch (error) {}
+
+}
+function setBackgroundColor(weatherCondition) {
+  const body = document.body;
+
+  switch (weatherCondition.toLowerCase()) {
+    case "clear":
+      body.style.backgroundColor = "#eae301";
+      break;
+    case "clouds":
+    case "wind":
+      body.style.backgroundColor = "#b5f1e4";
+      break;
+    case "rain":
+    case "thunderstorm":
+    case "haze":
+      body.style.backgroundColor = "#383b4a"; // Dark grey
+      break;
+    default:
+      body.style.backgroundColor = "#362929";
+  }
+}
+
+// display image content and temp
+function displayImageContent(data) {
+  return `<img src="https://openweathermap.org/img/wn/${
+    data.weather[0].icon
+  }@4x.png" alt="" />
+    <h2 class="weather_temp">${Math.round(data.main.temp - 275.15)}°C</h2>
+    <h3 class="cloudtxt">${data.weather[0].description}</h3>`;
+}
+
+// display the right side content
+function rightSideContent(result) {
+  return `<div class="content">
+          <p class="title">NAME</p>
+          <span class="value">${result.name}</span>
+        </div>
+        <div class="content">
+          <p class="title">TEMP</p>
+          <span class="value">${Math.round(result.main.temp - 275.15)}°C</span>
+        </div>
+        <div class="content">
+          <p class="title">HUMIDITY</p>
+          <span class="value">${result.main.humidity}%</span>
+        </div>
+        <div class="content">
+          <p class="title">WIND SPEED</p>
+          <span class="value">${result.wind.speed} Km/h</span>
+        </div>`;
+}
+
+async function displayForeCast(lat, long) {
+  const ForeCast_API = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${API}`;
+  const data = await fetch(ForeCast_API);
+  const result = await data.json();
+  // filter the forecast
+  const uniqeForeCastDays = [];
+  const daysForecast = result.list.filter((forecast) => {
+    const forecastDate = new Date(forecast.dt_txt).getDate();
+    if (!uniqeForeCastDays.includes(forecastDate)) {
+      return uniqeForeCastDays.push(forecastDate);
+    }
+  });
+  console.log(daysForecast);
+
+  daysForecast.forEach((content, indx) => {
+    if (indx <= 3) {
+      listContentEl.insertAdjacentHTML("afterbegin", forecast(content));
+    }
+  });
+}
+
+// forecast html element data
+function forecast(frContent) {
+  const day = new Date(frContent.dt_txt);
+  const dayName = days[day.getDay()];
+  const splitDay = dayName.split("", 3);
+  const joinDay = splitDay.join("");
+
+  // console.log(dayName);
+
+  return `<li>
+  <img src="https://openweathermap.org/img/wn/${
+    frContent.weather[0].icon
+  }@2x.png" />
+  <span>${joinDay}</span>
+  <span class="day_temp">${Math.round(frContent.main.temp - 275.15)}°C</span>
+</li>`;
+}
+
+    </script>
+</body>
+</html>
